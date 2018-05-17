@@ -1,12 +1,13 @@
 {
-  "name": "kim",
-  "version": "1.0.0-beta",
+  "name": "fetches",
+  "version": "0.1.0-alpha.0",
   "description": "Smart and Modern fetch wrapper.",
   "main": "index.js",
   "scripts": {
     "test": "jest --config .jestrc.json",
     "eslint": "eslint src tests",
-    "build": "rm -fr build && babel src --out-dir build && cp package.json build && cp README.md build",
+    "build":
+      "rm -fr build && babel src --out-dir build && cp package.json build && cp README.md build",
     "deploy": "npm run build && cd build && npm publish --access=public"
   },
   "repository": {
