@@ -1,0 +1,45 @@
+{
+  "name": "kim",
+  "version": "1.0.0-beta",
+  "description": "Smart and Modern fetch wrapper.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --config .jestrc.json",
+    "eslint": "eslint src tests",
+    "build": "rm -fr build && babel src --out-dir build && cp package.json build && cp README.md build",
+    "deploy": "npm run build && cd build && npm publish --access=public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dleitee/kim.git"
+  },
+  "author": "CheesecakeLabs",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CheesecakeLabs/fetch/issues"
+  },
+  "homepage": "https://github.com/CheesecakeLabs/fetch#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.3",
+    "babel-jest": "^22.4.3",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.11.0",
+    "form-data": "^2.3.2",
+    "jest": "^22.4.3",
+    "nock": "^9.2.5",
+    "node-fetch": "^1.7.3",
+    "rollup": "^0.58.2",
+    "rollup-plugin-babel": "^3.0.4"
+  },
+  "dependencies": {
+    "deepmerge": "^2.1.0",
+    "is-array": "^1.0.1",
+    "is-string": "^1.0.4",
+    "normalize-url": "^2.0.1",
+    "unfetch": "^3.0.0",
+    "url": "^0.11.0"
+  }
+}
