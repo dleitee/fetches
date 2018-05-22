@@ -1,24 +1,25 @@
 {
   "name": "fetches",
-  "version": "0.1.0-alpha.0",
+  "version": "0.1.0-alpha.4",
   "description": "Smart and Modern fetch wrapper.",
   "main": "index.js",
   "scripts": {
     "test": "jest --config .jestrc.json",
     "eslint": "eslint src tests",
-    "build": "rm -fr build && babel src --out-dir build && cp package.json build && cp README.md build",
+    "build":
+      "rm -fr build && rollup index.js --format cjs --file ./build/index.js && cp package.json build && cp README.md build",
     "deploy": "npm run build && cd build && npm publish --access=public"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dleitee/kim.git"
+    "url": "git+https://github.com/dleitee/fetches.git"
   },
-  "author": "CheesecakeLabs",
+  "author": "dleitee",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/CheesecakeLabs/fetch/issues"
+    "url": "https://github.com/dleitee/fetches/issues"
   },
-  "homepage": "https://github.com/CheesecakeLabs/fetch#readme",
+  "homepage": "https://github.com/dleitee/fetches#readme",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
