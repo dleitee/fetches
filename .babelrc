@@ -1,5 +1,15 @@
 {
-  "presets": [
-    "env",
-  ]
+  "env": {
+    "development": {
+      "presets": ["env"]
+    },
+    "rollup": {
+      "presets": [
+        ["env", {
+          "modules": false,
+        }]
+      ],
+      "plugins": ["external-helpers"]
+    }
+  }
 }
