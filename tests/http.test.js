@@ -7,7 +7,7 @@ describe('HTTP Module', () => {
     expect(getHTTPMethods).toBeDefined()
   })
   test('getHTTPMethods should return an object with the http methods', () => {
-    const httpMethods = ['post', 'get', 'upload', 'patch', 'put', 'remove']
+    const httpMethods = ['post', 'get', 'upload', 'patch', 'put', 'delete']
     const uri = 'http://example.com/api/v1/'
     const client = createClient(uri)
     const keys = Object.keys(getHTTPMethods(client))

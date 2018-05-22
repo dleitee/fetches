@@ -1,24 +1,53 @@
+import deepmerge from 'deepmerge'
+
+import NOT_IMPLEMENTED from './utils/not-implemented'
 import { Client } from './client'
 
-const NOT_IMPLEMENTED = () => {
-  throw 'This method was not implemented yet'
+const isClientInstance = client => {
+  if (client instanceof Client) {
+    return true
+  }
+  return false
 }
 
-const isClientInstance = client => {
-  if (!(client instanceof Client)) {
+const getDefaultOptions = client => {
+  switch (client.getRequestType()) {
+    case 'json':
+      return {
+        headers: {
+          'Content-type': 'application/json; charset=UTF-8',
+        },
+      }
+    default:
+      throw 'Request type not allowed'
+  }
+}
+
+const request = (client, method) => {
+  const appendToURI = Client.appendToURI.bind(this, client)
+  const DEFAULT_OPTIONS = getDefaultOptions(client)
+
+  return (uri, options = {}) => {
+    return fetch(appendToURI(uri), deepmerge(DEFAULT_OPTIONS, client.options.request, options))
+  }
+}
+
+export const getHTTPMethods = client => {
+  if (!isClientInstance(client)) {
     throw 'Please specify a Client to get the http methods.'
   }
-}
 
-export const getHTTPMethods = client =>
-  isClientInstance(client) || {
-    post: NOT_IMPLEMENTED,
-    get: NOT_IMPLEMENTED,
+  const clientRequest = request.bind(this, client)
+
+  return {
+    post: clientRequest('POST'),
+    get: clientRequest('GET'),
     upload: NOT_IMPLEMENTED,
-    patch: NOT_IMPLEMENTED,
-    put: NOT_IMPLEMENTED,
-    remove: NOT_IMPLEMENTED,
+    patch: clientRequest('PATCH'),
+    put: clientRequest('PUT'),
+    delete: clientRequest('DELETE'),
   }
+}
 
 export default {
   getHTTPMethods,
