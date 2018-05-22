@@ -7,7 +7,7 @@ const hasHTTPProtocol = url => isString(url) && url.startsWith('http')
 const appendURL = (...pieces) =>
   pieces.reduce((acc, current) => {
     if (isArray(current)) {
-      return acc + appendURL.apply(this, current)
+      return acc + appendURL.apply(null, current)
     }
 
     if (hasHTTPProtocol(current)) {
@@ -17,4 +17,8 @@ const appendURL = (...pieces) =>
     return `${acc}/${current}`
   }, '')
 
-export default (...pieces) => (options = {}) => normalizeURL(`${appendURL(pieces)}/`, options)
+export default (...pieces) => (options = {}) => {
+  const completeURL = appendURL(pieces)
+  const hasParams = !!completeURL.includes('?')
+  return normalizeURL(`${completeURL}${hasParams ? '' : '/'}`, options)
+}

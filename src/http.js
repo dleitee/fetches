@@ -1,6 +1,7 @@
 import deepmerge from 'deepmerge'
 
 import NOT_IMPLEMENTED from './utils/not-implemented'
+import { appendParams } from './utils/append-params'
 import { Client } from './client'
 
 const isClientInstance = client => {
@@ -24,11 +25,14 @@ const getDefaultOptions = client => {
 }
 
 const request = (client, method) => {
-  const appendToURI = Client.appendToURI.bind(this, client)
+  const appendToURI = Client.appendToURI.bind(null, client)
   const DEFAULT_OPTIONS = getDefaultOptions(client)
 
   return (uri, options = {}) => {
-    return fetch(appendToURI(uri), deepmerge(DEFAULT_OPTIONS, client.options.request, options))
+    return fetch(
+      appendToURI(!!uri ? uri : ''),
+      deepmerge(DEFAULT_OPTIONS, client.options.request, options)
+    )
   }
 }
 
@@ -37,11 +41,11 @@ export const getHTTPMethods = client => {
     throw 'Please specify a Client to get the http methods.'
   }
 
-  const clientRequest = request.bind(this, client)
+  const clientRequest = request.bind(null, client)
 
   return {
     post: clientRequest('POST'),
-    get: clientRequest('GET'),
+    get: (uri, params, options) => clientRequest('GET')(appendParams(uri, params), options),
     upload: NOT_IMPLEMENTED,
     patch: clientRequest('PATCH'),
     put: clientRequest('PUT'),

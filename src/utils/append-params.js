@@ -3,12 +3,10 @@ import normalizeURL from 'normalize-url'
 import compactObject from './compact-object'
 import buildQueryString from './build-query-string'
 
-const appendParams = (url, cleanParams) => {
+export const appendParams = (url = '', params = {}) => {
+  const cleanParams = compactObject(params)
   if (cleanParams && Object.keys(cleanParams).length) {
-    return `${url}?${buildQueryString(cleanParams)}`
+    return `${url || ''}?${buildQueryString(cleanParams)}`
   }
-  return url
+  return url || ''
 }
-
-export default (url, params, options) =>
-  normalizeURL(appendParams(url, compactObject(params)), options)

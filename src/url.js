@@ -1,5 +1,5 @@
-import isArray from 'is-array'
 import isString from 'is-string'
+import isArray from 'is-array'
 
 const replaceUrlWithVars = (url, variables = {}) => {
   const regexVariables = /:[-|_|\w]+/g
