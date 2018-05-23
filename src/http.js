@@ -50,8 +50,9 @@ export const getHTTPMethods = client => {
     get: (uri, params = {}, options = {}) =>
       clientRequest('GET')(appendParams(uri, params), options),
     upload: NOT_IMPLEMENTED,
-    patch: clientRequest('PATCH'),
-    put: clientRequest('PUT'),
+    patch: (uri, data = {}, options = {}) =>
+      clientRequest('PATCH')(uri, deepmerge(options, { body: JSON.stringify(data) })),
+
     delete: clientRequest('DELETE'),
   }
 }
