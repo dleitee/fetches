@@ -27,11 +27,12 @@ const getDefaultOptions = client => {
 const request = (client, method) => {
   const appendToURI = Client.appendToURI.bind(null, client)
   const DEFAULT_OPTIONS = getDefaultOptions(client)
+  const HTTP_METHOD = { method }
 
   return (uri, options = {}) => {
     return fetch(
       appendToURI(!!uri ? uri : ''),
-      deepmerge(DEFAULT_OPTIONS, client.options.request, options)
+      deepmerge.all([DEFAULT_OPTIONS, client.options.request, options, HTTP_METHOD])
     )
   }
 }
@@ -44,8 +45,10 @@ export const getHTTPMethods = client => {
   const clientRequest = request.bind(null, client)
 
   return {
-    post: clientRequest('POST'),
-    get: (uri, params, options) => clientRequest('GET')(appendParams(uri, params), options),
+    post: (uri, data = {}, options = {}) =>
+      clientRequest('POST')(uri, deepmerge(options, { body: JSON.stringify(data) })),
+    get: (uri, params = {}, options = {}) =>
+      clientRequest('GET')(appendParams(uri, params), options),
     upload: NOT_IMPLEMENTED,
     patch: clientRequest('PATCH'),
     put: clientRequest('PUT'),
