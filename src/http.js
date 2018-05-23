@@ -16,7 +16,7 @@ const getDefaultOptions = client => {
     case 'json':
       return {
         headers: {
-          'Content-type': 'application/json; charset=UTF-8',
+          'content-type': 'application/json; charset=UTF-8',
         },
       }
     default:
@@ -29,12 +29,11 @@ const request = (client, method) => {
   const DEFAULT_OPTIONS = getDefaultOptions(client)
   const HTTP_METHOD = { method }
 
-  return (uri, options = {}) => {
-    return fetch(
+  return (uri, options = {}) =>
+    fetch(
       appendToURI(!!uri ? uri : ''),
       deepmerge.all([DEFAULT_OPTIONS, client.options.request, options, HTTP_METHOD])
     )
-  }
 }
 
 export const getHTTPMethods = client => {
@@ -49,7 +48,17 @@ export const getHTTPMethods = client => {
       clientRequest('POST')(uri, deepmerge(options, { body: JSON.stringify(data) })),
     get: (uri, params = {}, options = {}) =>
       clientRequest('GET')(appendParams(uri, params), options),
-    upload: NOT_IMPLEMENTED,
+    upload: (uri, formData = new FormData(), options = {}) =>
+      clientRequest('POST')(
+        uri,
+        deepmerge.all([
+          options,
+          {
+            body: formData,
+            headers: formData.getHeaders(),
+          },
+        ])
+      ),
     patch: (uri, data = {}, options = {}) =>
       clientRequest('PATCH')(uri, deepmerge(options, { body: JSON.stringify(data) })),
     put: (uri, data = {}, options = {}) =>

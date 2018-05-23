@@ -9,9 +9,15 @@ export default {
     format: 'cjs',
   },
   plugins: [
-    resolve({ modulesOnly: true, jsnext: true }),
+    resolve({
+      modulesOnly: true,
+      jsnext: true,
+      customResolveOptions: {
+        moduleDirectory: 'node_modules',
+      },
+    }),
     commonjs(),
     babel({ exclude: 'node_modules/**' }),
   ],
-  external: ['is-string', 'is-array', 'normalize-url', 'deepmerge', 'unfetch'],
+  // external: ['is-string', 'is-array', 'normalize-url', 'deepmerge', 'unfetch'],
 }

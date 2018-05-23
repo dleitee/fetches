@@ -35,7 +35,6 @@ describe('Client Module', () => {
       },
     }
     const client = createClient(uri, options)
-    console.log(client.getURI())
     expect(client.getURI()).toBe(normalizedURI)
   })
 })
