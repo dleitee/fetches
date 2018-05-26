@@ -1,6 +1,7 @@
 {
   "verbose": true,
   "collectCoverage": true,
+  "coverageDirectory": "./coverage/",
   "setupFiles": ["./tests/config.test.js"],
   "collectCoverageFrom": ["./src/**/*.js"],
   "testPathIgnorePatterns": ["./old-tests/*", "./tests/config.test.js"],
