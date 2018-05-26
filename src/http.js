@@ -48,17 +48,6 @@ export const getHTTPMethods = client => {
       clientRequest('POST')(uri, deepmerge(options, { body: JSON.stringify(data) })),
     get: (uri, params = {}, options = {}) =>
       clientRequest('GET')(appendParams(uri, params), options),
-    upload: (uri, formData = new FormData(), options = {}) =>
-      clientRequest('POST')(
-        uri,
-        deepmerge.all([
-          options,
-          {
-            body: formData,
-            headers: formData.getHeaders(),
-          },
-        ])
-      ),
     patch: (uri, data = {}, options = {}) =>
       clientRequest('PATCH')(uri, deepmerge(options, { body: JSON.stringify(data) })),
     put: (uri, data = {}, options = {}) =>

@@ -19,5 +19,5 @@ export default {
     commonjs(),
     babel({ exclude: 'node_modules/**' }),
   ],
-  // external: ['is-string', 'is-array', 'normalize-url', 'deepmerge', 'unfetch'],
+  external: ['is-string', 'is-array', 'normalize-url', 'deepmerge', 'unfetch'],
 }
