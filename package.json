@@ -2,13 +2,12 @@
   "name": "fetches",
   "version": "0.1.0",
   "description": "Smart and Modern fetch wrapper.",
-  "main": "index.js",
+  "main": "./lib/module.js",
   "scripts": {
     "test": "BABEL_ENV=development jest --config .jestrc.json",
     "test-watch": "BABEL_ENV=development jest --watch --config .jestrc.json",
     "eslint": "eslint src tests",
-    "build": "BABEL_ENV=rollup rollup -c",
-    "deploy": "npm run build && cd build && npm publish --access=public"
+    "build": "BABEL_ENV=rollup rollup -c"
   },
   "repository": {
     "type": "git",
