@@ -1,5 +1,3 @@
-import normalizeURL from 'normalize-url'
-
 import compactObject from './compact-object'
 import buildQueryString from './build-query-string'
 
@@ -10,3 +8,5 @@ export const appendParams = (url = '', params = {}) => {
   }
   return url || ''
 }
+
+export default appendParams

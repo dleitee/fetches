@@ -1,9 +1,8 @@
 import { createClient } from '../src/client'
-import http, { getHTTPMethods } from '../src/http'
+import { getHTTPMethods } from '../src/http'
 
 describe('HTTP Module', () => {
   test('http module must have the method getHTTPMethods', () => {
-    expect(http.getHTTPMethods).toBeDefined()
     expect(getHTTPMethods).toBeDefined()
   })
   test('getHTTPMethods should return an object with the http methods', () => {

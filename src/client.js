@@ -35,9 +35,7 @@ export class Client {
   }
 }
 
-export const createClient = (uri, options) => {
-  return new Client(uri, options)
-}
+export const createClient = (uri, options) => new Client(uri, options)
 
 export default {
   createClient,

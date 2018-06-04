@@ -1,8 +1,7 @@
-import url, { createUrl } from '../src/url'
+import { createUrl } from '../src/url'
 
 describe('URL Module', () => {
   test('url module must have the method createUrl', () => {
-    expect(url.createUrl).toBeDefined()
     expect(createUrl).toBeDefined()
   })
   describe('when the first parameter be a string without variables', () => {

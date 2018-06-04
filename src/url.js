@@ -1,4 +1,3 @@
-import isString from 'is-string'
 import isArray from 'is-array'
 
 const replaceUrlWithVars = (url, variables = {}) => {
@@ -13,12 +12,10 @@ const replaceUrlWithVars = (url, variables = {}) => {
 const joinPathArray = paths => paths.join('/')
 
 export const createUrl = (paths, variables) => {
-  if (isString(paths)) {
-    return replaceUrlWithVars(paths, variables)
-  }
   if (isArray(paths)) {
     return replaceUrlWithVars(joinPathArray(paths), variables)
   }
+  return replaceUrlWithVars(paths, variables)
 }
 
 export default {

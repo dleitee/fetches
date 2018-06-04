@@ -1,6 +1,5 @@
 import deepmerge from 'deepmerge'
 
-import NOT_IMPLEMENTED from './utils/not-implemented'
 import { appendParams } from './utils/append-params'
 import { Client } from './client'
 
@@ -20,7 +19,7 @@ const getDefaultOptions = client => {
         },
       }
     default:
-      throw 'Request type not allowed'
+      throw new Error('Request type not allowed')
   }
 }
 
@@ -31,14 +30,14 @@ const request = (client, method) => {
 
   return (uri, options = {}) =>
     fetch(
-      appendToURI(!!uri ? uri : ''),
+      appendToURI(uri || ''),
       deepmerge.all([DEFAULT_OPTIONS, client.options.request, options, HTTP_METHOD])
     )
 }
 
 export const getHTTPMethods = client => {
   if (!isClientInstance(client)) {
-    throw 'Please specify a Client to get the http methods.'
+    throw new Error('Please specify a Client to get the http methods.')
   }
 
   const clientRequest = request.bind(null, client)

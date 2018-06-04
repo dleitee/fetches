@@ -1,8 +1,7 @@
-import client, { createClient, Client } from '../src/client'
+import { createClient, Client } from '../src/client'
 
 describe('Client Module', () => {
   test('client module must have the method createClient', () => {
-    expect(client.createClient).toBeDefined()
     expect(createClient).toBeDefined()
   })
   test('createClient should return a Client object', () => {

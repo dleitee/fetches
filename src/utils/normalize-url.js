@@ -7,7 +7,7 @@ const hasHTTPProtocol = url => isString(url) && url.startsWith('http')
 const appendURL = (...pieces) =>
   pieces.reduce((acc, current) => {
     if (isArray(current)) {
-      return acc + appendURL.apply(null, current)
+      return acc + appendURL(...current)
     }
 
     if (hasHTTPProtocol(current)) {

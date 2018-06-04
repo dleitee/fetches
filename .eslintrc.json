@@ -1,6 +1,6 @@
 {
   "parser": "babel-eslint",
-  "extends": "airbnb/base",
+  "extends": ["airbnb/base", "prettier"],
   "env": {
     "browser": true,
     "node": true,
@@ -8,21 +8,9 @@
   },
   "rules": {
     "semi": [2, "never"],
-    "no-console": [
-      2,
-      {
-        "allow": ["warn", "info", "error"]
-      }
-    ],
+    "no-console": [ 2, { "allow": ["warn", "info", "error"] } ],
     "import/named": 2,
-    "no-multiple-empty-lines": [
-      "error",
-      {
-        "max": 1,
-        "maxEOF": 1,
-        "maxBOF": 0
-      }
-    ],
+    "no-multiple-empty-lines": [ "error", { "max": 1, "maxEOF": 1, "maxBOF": 0 } ],
     "import/order": [
       "error",
       {
@@ -30,7 +18,19 @@
         "newlines-between": "always"
       }
     ],
-    "no-lenght/no-lenght": "error"
+    "arrow-parens": ["error", "as-needed"],
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "trailingComma": "es5",
+        "bracketSpacing": true,
+        "jsxBracketSameLine": false,
+        "semi": false,
+        "parser": "babylon",
+        "printWidth": 100
+      }
+    ]
   },
-  "plugins": ["no-lenght"]
+  "plugins": ["prettier"]
 }

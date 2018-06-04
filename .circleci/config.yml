@@ -20,6 +20,7 @@ jobs:
           key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
             - node_modules/
+      - run: yarn eslint
       - run: yarn test
       - run: sudo yarn global add codecov
       - run: codecov --token=$CODECOV_TOKEN
