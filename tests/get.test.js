@@ -48,7 +48,12 @@ describe('GET Requests', () => {
 
   test('Testing a basic GET request with array params', async () => {
     nock(EXAMPLE_URI)
-      .get('/?a=1&b=2&c[]=1&c[]=2')
+      .get('/')
+      .query({
+        a: 1,
+        b: 2,
+        c: [1, 2],
+      })
       .reply(200, { body: 'success' })
 
     const client = createClient(EXAMPLE_URI)
