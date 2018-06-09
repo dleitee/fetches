@@ -1,5 +1,5 @@
 # fetches
-[![codecov](https://codecov.io/gh/dleitee/fetches/branch/master/graph/badge.svg?token=U3H6jLNbac)](https://codecov.io/gh/dleitee/fetches) [![CircleCI](https://circleci.com/gh/dleitee/fetches.svg?style=svg&circle-token=f42a433fef54fd17c818742c05907d4232ccb224)](https://circleci.com/gh/dleitee/fetches)
+[![codecov](https://codecov.io/gh/dleitee/fetches/branch/master/graph/badge.svg?token=U3H6jLNbac)](https://codecov.io/gh/dleitee/fetches) [![CircleCI](https://circleci.com/gh/dleitee/fetches.svg?style=svg&circle-token=f42a433fef54fd17c818742c05907d4232ccb224)](https://circleci.com/gh/dleitee/fetches) [![Greenkeeper badge](https://badges.greenkeeper.io/dleitee/fetches.svg?token=1574e399ea4865ffbdc06a581673c7ae27e783771d794f9a97a6931118cbdab6&ts=1528215914233)](https://greenkeeper.io/)
 
 Fetches is a workaround to make requests, in an easy and scalable way.
 
