@@ -39,6 +39,14 @@ const executeBeforeMiddleware = (client, requestData) =>
     Promise.resolve(requestData)
   )
 
+const executeAfterMiddleware = (client, requestData) =>
+  client
+    .after()
+    .reduce(
+      (previous, current) => previous.then(response => current(response, requestData)),
+      fetch(requestData.uri, requestData.options)
+    )
+
 const request = (client, method) => {
   const appendToURI = Client.appendToURI.bind(null, client)
   const DEFAULT_OPTIONS = getDefaultOptions(client)
@@ -62,7 +70,7 @@ const request = (client, method) => {
     } catch (e) {
       return Promise.reject(e)
     }
-    return fetch(finalURI, updatedRequestData.options)
+    return executeAfterMiddleware(client, updatedRequestData)
   }
 }
 
