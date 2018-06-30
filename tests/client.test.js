@@ -5,7 +5,7 @@ describe('Client Module', () => {
     expect(createClient).toBeDefined()
   })
   test('createClient should return a Client object', () => {
-    const uri = 'http://example.com/api/v1/#index'
+    const uri = 'http://example.com/api/v1/'
     expect(createClient(uri)).toBeInstanceOf(Client)
   })
   test('The first param of createClient should be an URI', () => {
