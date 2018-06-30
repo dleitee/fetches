@@ -93,4 +93,33 @@ describe('Before Middleware', () => {
     const http = getHTTPMethods(client)
     await http.post('test', data, options)
   })
+  test("when a middleware has been canceled, the next middlewares shoudn't be called.", async () => {
+    const fn = jest.fn()
+    const catchedFn = jest.fn()
+    nock('http://example.com/api/v1/test/')
+      .post('/')
+      .reply(200, () => {
+        fn()
+        return {}
+      })
+    const beforeFuncOne = (next, cancel) => cancel()
+
+    const beforeFuncTwo = next => {
+      fn()
+      next()
+    }
+
+    const client = createClient(uri, {
+      before: [beforeFuncOne, beforeFuncTwo],
+      request: {
+        headers: {
+          Authorization: 'Token a',
+        },
+      },
+    })
+    const http = getHTTPMethods(client)
+    await http.post('test', data, options).catch(catchedFn)
+    expect(fn).toHaveBeenCalledTimes(0)
+    expect(catchedFn).toHaveBeenCalledTimes(1)
+  })
 })

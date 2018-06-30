@@ -29,17 +29,13 @@ const nextFunction = (resolve, requestData) => (newRequestData = requestData) =>
 const executeBeforeMiddleware = (client, requestData) =>
   client.before().reduce(
     (previous, current) =>
-      previous
-        .then(
-          (response = {}) =>
-            new Promise((resolve, reject) => {
-              const mergedData = deepmerge.all([requestData, response])
-              current(nextFunction(resolve, mergedData), reject, mergedData)
-            })
-        )
-        .catch(response => {
-          Promise.reject(response)
-        }),
+      previous.then(
+        (response = {}) =>
+          new Promise((resolve, reject) => {
+            const mergedData = deepmerge.all([requestData, response])
+            current(nextFunction(resolve, mergedData), reject, mergedData)
+          })
+      ),
     Promise.resolve(requestData)
   )
 
