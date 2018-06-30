@@ -23,16 +23,51 @@ const getDefaultOptions = client => {
   }
 }
 
+const nextFunction = (resolve, requestData) => (newRequestData = requestData) =>
+  resolve(newRequestData)
+
+const executeBeforeMiddleware = (client, requestData) =>
+  client.before().reduce(
+    (previous, current) =>
+      previous
+        .then(
+          (response = {}) =>
+            new Promise((resolve, reject) => {
+              const mergedData = deepmerge.all([requestData, response])
+              current(nextFunction(resolve, mergedData), reject, mergedData)
+            })
+        )
+        .catch(response => {
+          Promise.reject(response)
+        }),
+    Promise.resolve(requestData)
+  )
+
 const request = (client, method) => {
   const appendToURI = Client.appendToURI.bind(null, client)
   const DEFAULT_OPTIONS = getDefaultOptions(client)
   const HTTP_METHOD = { method }
 
-  return (uri, options = {}) =>
-    fetch(
-      appendToURI(uri || ''),
-      deepmerge.all([DEFAULT_OPTIONS, client.options.request, options, HTTP_METHOD])
-    )
+  return async (uri, options = {}) => {
+    const finalURI = appendToURI(uri || '')
+    const finalOptions = deepmerge.all([
+      DEFAULT_OPTIONS,
+      client.options.request,
+      options,
+      HTTP_METHOD,
+    ])
+    let updatedRequestData = null
+    try {
+      updatedRequestData = await executeBeforeMiddleware(client, {
+        method,
+        options: finalOptions,
+        uri: finalURI,
+      })
+    } catch (e) {
+      return Promise.reject(e)
+    }
+    return fetch(finalURI, updatedRequestData.options)
+  }
 }
 
 export const getHTTPMethods = client => {
