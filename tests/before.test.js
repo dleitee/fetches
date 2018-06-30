@@ -1,6 +1,6 @@
 import nock from 'nock'
 
-import { createClient, Client } from '../src/client'
+import { createClient } from '../src/client'
 import { getHTTPMethods } from '../src/http'
 
 describe('Before Middleware', () => {
