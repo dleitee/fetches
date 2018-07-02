@@ -1,6 +1,6 @@
 {
   "name": "fetches",
-  "version": "0.1.6",
+  "version": "0.2.0",
   "description": "Smart and Modern fetch wrapper.",
   "main": "./lib/module.js",
   "scripts": {
