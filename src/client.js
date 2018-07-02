@@ -9,6 +9,8 @@ const DEFAULT_OPTIONS = {
   uri: {
     removeTrailingSlash: false,
   },
+  before: [],
+  after: [],
 }
 
 export class Client {
@@ -32,6 +34,14 @@ export class Client {
 
   getRequestType() {
     return this.requestType
+  }
+
+  before() {
+    return this.options.before
+  }
+
+  after() {
+    return this.options.after
   }
 }
 
