@@ -54,12 +54,16 @@ const request = (client, method) => {
 
   return async (uri, options = {}) => {
     const finalURI = appendToURI(uri || '')
+    const { signal } = options
     const finalOptions = deepmerge.all([
       DEFAULT_OPTIONS,
       client.options.request,
       options,
       HTTP_METHOD,
     ])
+    if (signal) {
+      finalOptions.signal = signal
+    }
     let updatedRequestData = null
     try {
       updatedRequestData = await executeBeforeMiddleware(client, {
