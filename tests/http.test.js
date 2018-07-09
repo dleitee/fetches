@@ -12,9 +12,4 @@ describe('HTTP Module', () => {
     const keys = Object.keys(getHTTPMethods(client))
     expect(keys).toEqual(expect.arrayContaining(httpMethods))
   })
-  test('getHTTPMethods needs a client as parameter', () => {
-    expect(() => {
-      getHTTPMethods()
-    }).toThrow()
-  })
 })
