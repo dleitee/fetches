@@ -3,13 +3,6 @@ import deepmerge from 'deepmerge'
 import { appendParams } from './utils/append-params'
 import { Client } from './client'
 
-const isClientInstance = client => {
-  if (client instanceof Client) {
-    return true
-  }
-  return false
-}
-
 const getDefaultOptions = client => {
   switch (client.getRequestType()) {
     case 'json':
@@ -79,10 +72,6 @@ const request = (client, method) => {
 }
 
 export const getHTTPMethods = client => {
-  if (!isClientInstance(client)) {
-    throw new Error('Please specify a Client to get the http methods.')
-  }
-
   const clientRequest = request.bind(null, client)
 
   return {

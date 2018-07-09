@@ -43,6 +43,20 @@ export class Client {
   after() {
     return this.options.after
   }
+
+  appendBeforeMiddleware(middleware) {
+    const options = deepmerge(this.options, {
+      before: [middleware],
+    })
+    return new Client(this.getURI(), options)
+  }
+
+  appendAfterMiddleware(middleware) {
+    const options = deepmerge(this.options, {
+      after: [middleware],
+    })
+    return new Client(this.getURI(), options)
+  }
 }
 
 export const createClient = (uri, options) => new Client(uri, options)
