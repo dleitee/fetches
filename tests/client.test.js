@@ -37,4 +37,30 @@ describe('Client Module', () => {
     const client = createClient(uri, options)
     expect(client.getURI()).toBe(normalizedURI)
   })
+  test('The appendAfterMiddleware should append a middleware at the end of middleware list and return a new client', () => {
+    const uri = 'http://example.com/api/v1/#index'
+    const mid1 = () => 1
+    const mid2 = () => 2
+    const client = createClient(uri, {
+      after: [mid1],
+    })
+    expect(client.after()).toContain(mid1)
+    const newClient = client.appendAfterMiddleware(mid2)
+    expect(client.after()).not.toContain(mid2)
+    expect(newClient.after()[0]).toBe(mid1)
+    expect(newClient.after()[1]).toBe(mid2)
+  })
+  test('The appendBeforeMiddleware should append a middleware at the end of middleware list and return a new client', () => {
+    const uri = 'http://example.com/api/v1/#index'
+    const mid1 = () => 1
+    const mid2 = () => 2
+    const client = createClient(uri, {
+      before: [mid1],
+    })
+    expect(client.before()).toContain(mid1)
+    const newClient = client.appendBeforeMiddleware(mid2)
+    expect(client.before()).not.toContain(mid2)
+    expect(newClient.before()[0]).toBe(mid1)
+    expect(newClient.before()[1]).toBe(mid2)
+  })
 })
