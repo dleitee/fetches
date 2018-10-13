@@ -20,12 +20,12 @@
   },
   "homepage": "https://github.com/dleitee/fetches#readme",
   "devDependencies": {
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^10.0.0",
-    "babel-jest": "^23.0.1",
-    "babel-plugin-external-helpers": "^6.22.0",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.7.0",
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-external-helpers": "^7.0.0",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^23.6.0",
     "eslint": "^5.0.0",
     "eslint-config-airbnb": "^17.0.0",
     "eslint-config-airbnb-base": "^13.0.0",
@@ -43,6 +43,7 @@
     "rollup-plugin-node-resolve": "^3.3.0"
   },
   "dependencies": {
+    "@babel/runtime": "^7.1.2",
     "deepmerge": "^2.1.0",
     "is-array": "^1.0.1",
     "is-string": "^1.0.4",

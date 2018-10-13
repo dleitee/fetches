@@ -1,17 +1,17 @@
 {
   "env": {
     "development": {
-      "presets": ["env"]
+      "presets": ["@babel/preset-env"]
     },
     "rollup": {
       "presets": [
-        ["env", {
+        ["@babel/preset-env", {
           "modules": false,
         }]
       ],
       "plugins": [
-        "external-helpers",
-        ["transform-runtime", {
+        "@babel/plugin-external-helpers",
+        ["@babel/plugin-transform-runtime", {
           "polyfill": false,
           "regenerator": true
         }]
