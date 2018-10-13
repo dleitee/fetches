@@ -4,10 +4,10 @@
   "description": "Smart and Modern fetch wrapper.",
   "main": "./lib/module.js",
   "scripts": {
-    "test": "BABEL_ENV=development jest --config .jestrc.json",
-    "test-watch": "BABEL_ENV=development jest --watch --config .jestrc.json",
+    "test": "NODE_ENV=dev jest --config .jestrc.json",
+    "test-watch": "NODE_ENV=dev jest --watch --config .jestrc.json",
     "eslint": "eslint src tests",
-    "build": "BABEL_ENV=rollup rollup -c"
+    "build": "NODE_ENV=prod rollup -c"
   },
   "repository": {
     "type": "git",
