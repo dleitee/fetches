@@ -54,6 +54,10 @@ const request = (client, method) => {
       options,
       HTTP_METHOD,
     ])
+    if (method === 'UPLOAD') {
+      finalOptions.method = 'POST'
+      finalOptions.headers['content-type'] = undefined
+    }
     if (signal) {
       finalOptions.signal = signal
     }
@@ -82,7 +86,7 @@ export const getHTTPMethods = client => {
     patch: (uri, data = {}, options = {}) =>
       clientRequest('PATCH')(uri, deepmerge(options, { body: JSON.stringify(data) })),
     upload: (uri, data = {}, options = {}) =>
-      clientRequest('PATCH')(uri, deepmerge(options, { body: data })),
+      clientRequest('UPLOAD')(uri, deepmerge(options, { body: data })),
     put: (uri, data = {}, options = {}) =>
       clientRequest('PUT')(uri, deepmerge(options, { body: JSON.stringify(data) })),
     delete: (uri, data = {}, options = {}) =>
