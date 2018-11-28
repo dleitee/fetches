@@ -56,8 +56,8 @@ const request = (client, method) => {
     ])
     if (method === 'UPLOAD') {
       finalOptions.method = 'POST'
-      finalOptions.headers['content-type'] = undefined
       finalOptions.body = data
+      delete finalOptions.headers['content-type']
     }
     if (signal) {
       finalOptions.signal = signal
