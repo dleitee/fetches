@@ -55,7 +55,7 @@ const request = (client, method) => {
       HTTP_METHOD,
     ])
     if (method === 'UPLOAD') {
-      finalOptions.method = 'POST'
+      finalOptions.method = 'PATCH'
       finalOptions.body = data
       delete finalOptions.headers['content-type']
     }
