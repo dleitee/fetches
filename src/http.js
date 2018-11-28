@@ -45,7 +45,7 @@ const request = (client, method) => {
   const DEFAULT_OPTIONS = getDefaultOptions(client)
   const HTTP_METHOD = { method }
 
-  return async (uri, options = {}) => {
+  return async (uri, options = {}, data = new FormData()) => {
     const finalURI = appendToURI(uri || '')
     const { signal } = options
     const finalOptions = deepmerge.all([
@@ -57,6 +57,7 @@ const request = (client, method) => {
     if (method === 'UPLOAD') {
       finalOptions.method = 'POST'
       finalOptions.headers['content-type'] = undefined
+      finalOptions.body = data
     }
     if (signal) {
       finalOptions.signal = signal
@@ -85,8 +86,7 @@ export const getHTTPMethods = client => {
       clientRequest('GET')(appendParams(uri, params), options),
     patch: (uri, data = {}, options = {}) =>
       clientRequest('PATCH')(uri, deepmerge(options, { body: JSON.stringify(data) })),
-    upload: (uri, data = {}, options = {}) =>
-      clientRequest('UPLOAD')(uri, deepmerge(options, { body: data })),
+    upload: (uri, data = {}, options = {}) => clientRequest('UPLOAD')(uri, options, data),
     put: (uri, data = {}, options = {}) =>
       clientRequest('PUT')(uri, deepmerge(options, { body: JSON.stringify(data) })),
     delete: (uri, data = {}, options = {}) =>
