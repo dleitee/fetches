@@ -45,7 +45,7 @@ const request = (client, method) => {
   const DEFAULT_OPTIONS = getDefaultOptions(client)
   const HTTP_METHOD = { method }
 
-  return async (uri, options = {}, data = new FormData()) => {
+  return async (uri, options = {}, data) => {
     const finalURI = appendToURI(uri || '')
     const { signal } = options
     const finalOptions = deepmerge.all([
