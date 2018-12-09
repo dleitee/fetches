@@ -1,4 +1,5 @@
 import deepmerge from 'deepmerge'
+import _pickBy from 'lodash.pickby'
 
 import { appendParams } from './utils/append-params'
 import { Client } from './client'
@@ -54,10 +55,10 @@ const request = (client, method) => {
       options,
       HTTP_METHOD,
     ])
-    if (method === 'UPLOAD') {
-      finalOptions.method = 'PATCH'
+    finalOptions.body = JSON.stringify(data)
+    if (data instanceof FormData) {
       finalOptions.body = data
-      delete finalOptions.headers['content-type']
+      finalOptions.headers['content-type'] = ''
     }
     if (signal) {
       finalOptions.signal = signal
@@ -66,7 +67,7 @@ const request = (client, method) => {
     try {
       updatedRequestData = await executeBeforeMiddleware(client, {
         method,
-        options: finalOptions,
+        options: _pickBy(finalOptions),
         uri: finalURI,
       })
     } catch (e) {
@@ -80,17 +81,13 @@ export const getHTTPMethods = client => {
   const clientRequest = request.bind(null, client)
 
   return {
-    post: (uri, data = {}, options = {}) =>
-      clientRequest('POST')(uri, deepmerge(options, { body: JSON.stringify(data) })),
+    post: (uri, data = {}, options = {}) => clientRequest('POST')(uri, options, data),
     get: (uri, params = {}, options = {}) =>
       clientRequest('GET')(appendParams(uri, params), options),
-    patch: (uri, data = {}, options = {}) =>
-      clientRequest('PATCH')(uri, deepmerge(options, { body: JSON.stringify(data) })),
-    upload: (uri, data = {}, options = {}) => clientRequest('UPLOAD')(uri, options, data),
-    put: (uri, data = {}, options = {}) =>
-      clientRequest('PUT')(uri, deepmerge(options, { body: JSON.stringify(data) })),
-    delete: (uri, data = {}, options = {}) =>
-      clientRequest('DELETE')(uri, deepmerge(options, { body: JSON.stringify(data) })),
+    patch: (uri, data = {}, options = {}) => clientRequest('PATCH')(uri, options, data),
+    upload: (uri, data = {}, options = {}) => clientRequest('PATCH')(uri, options, data),
+    put: (uri, data = {}, options = {}) => clientRequest('PUT')(uri, options, data),
+    delete: (uri, data = {}, options = {}) => clientRequest('DELETE')(uri, options, data),
   }
 }
 
