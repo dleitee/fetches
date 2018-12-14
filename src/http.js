@@ -1,3 +1,4 @@
+import isPlainObject from 'is-plain-object'
 import deepmerge from 'deepmerge'
 import _pickBy from 'lodash.pickby'
 
@@ -26,7 +27,9 @@ const executeBeforeMiddleware = (client, requestData) =>
       previous.then(
         (response = {}) =>
           new Promise((resolve, reject) => {
-            const mergedData = deepmerge.all([requestData, response])
+            const mergedData = deepmerge(requestData, response, {
+              isMergeableObject: isPlainObject,
+            })
             current(nextFunction(resolve, mergedData), reject, mergedData)
           })
       ),
@@ -49,12 +52,12 @@ const request = (client, method) => {
   return async (uri, options = {}, data) => {
     const finalURI = appendToURI(uri || '')
     const { signal } = options
-    const finalOptions = deepmerge.all([
-      DEFAULT_OPTIONS,
-      client.options.request,
-      options,
-      HTTP_METHOD,
-    ])
+    const finalOptions = deepmerge.all(
+      [DEFAULT_OPTIONS, client.options.request, options, HTTP_METHOD],
+      {
+        isMergeableObject: isPlainObject,
+      }
+    )
     finalOptions.body = JSON.stringify(data)
     if (data instanceof FormData) {
       finalOptions.body = data

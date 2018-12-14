@@ -44,6 +44,7 @@
   "dependencies": {
     "deepmerge": "^3.0.0",
     "is-array": "^1.0.1",
+    "is-plain-object": "^2.0.4",
     "is-string": "^1.0.4",
     "lodash.pickby": "^4.6.0",
     "normalize-url": "^3.0.1",

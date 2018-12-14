@@ -1,3 +1,4 @@
+import isPlainObject from 'is-plain-object'
 import deepmerge from 'deepmerge'
 
 import NOT_IMPLEMENTED from './utils/not-implemented'
@@ -15,7 +16,9 @@ const DEFAULT_OPTIONS = {
 
 export class Client {
   constructor(uri, options = {}) {
-    this.options = deepmerge(DEFAULT_OPTIONS, options)
+    this.options = deepmerge(DEFAULT_OPTIONS, options, {
+      isMergeableObject: isPlainObject,
+    })
     this.uri = normalizeURL(uri)(this.options.uri)
 
     if (this.options.requestType !== DEFAULT_OPTIONS.requestType) {
@@ -45,16 +48,28 @@ export class Client {
   }
 
   appendBeforeMiddleware(middleware) {
-    const options = deepmerge(this.options, {
-      before: [middleware],
-    })
+    const options = deepmerge(
+      this.options,
+      {
+        before: [middleware],
+      },
+      {
+        isMergeableObject: isPlainObject,
+      }
+    )
     return new Client(this.getURI(), options)
   }
 
   appendAfterMiddleware(middleware) {
-    const options = deepmerge(this.options, {
-      after: [middleware],
-    })
+    const options = deepmerge(
+      this.options,
+      {
+        after: [middleware],
+      },
+      {
+        isMergeableObject: isPlainObject,
+      }
+    )
     return new Client(this.getURI(), options)
   }
 }
