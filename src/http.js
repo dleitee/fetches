@@ -63,7 +63,6 @@ const request = (client, method) => {
       finalOptions.body = data
       delete finalOptions.headers['content-type']
       delete finalOptions.headers['Content-Type']
-      finalOptions.headers['Content-Type'] = 'multipart/form-data'
     }
     if (signal) {
       finalOptions.signal = signal
