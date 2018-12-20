@@ -1,8 +1,8 @@
-import isPlainObject from 'is-plain-object'
 import deepmerge from 'deepmerge'
 
 import NOT_IMPLEMENTED from './utils/not-implemented'
 import normalizeURL from './utils/normalize-url'
+import { isMergeableObject } from './utils/is-mergeable'
 
 const DEFAULT_OPTIONS = {
   requestType: 'json',
@@ -17,7 +17,7 @@ const DEFAULT_OPTIONS = {
 export class Client {
   constructor(uri, options = {}) {
     this.options = deepmerge(DEFAULT_OPTIONS, options, {
-      isMergeableObject: isPlainObject,
+      isMergeableObject,
     })
     this.uri = normalizeURL(uri)(this.options.uri)
 
@@ -54,7 +54,7 @@ export class Client {
         before: [middleware],
       },
       {
-        isMergeableObject: isPlainObject,
+        isMergeableObject,
       }
     )
     return new Client(this.getURI(), options)
@@ -67,7 +67,7 @@ export class Client {
         after: [middleware],
       },
       {
-        isMergeableObject: isPlainObject,
+        isMergeableObject,
       }
     )
     return new Client(this.getURI(), options)

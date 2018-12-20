@@ -1,9 +1,9 @@
-import isPlainObject from 'is-plain-object'
 import deepmerge from 'deepmerge'
 import _pickBy from 'lodash.pickby'
 
 import { appendParams } from './utils/append-params'
 import { Client } from './client'
+import { isMergeableObject } from './utils/is-mergeable'
 
 const getDefaultOptions = client => {
   switch (client.getRequestType()) {
@@ -28,7 +28,7 @@ const executeBeforeMiddleware = (client, requestData) =>
         (response = {}) =>
           new Promise((resolve, reject) => {
             const mergedData = deepmerge(requestData, response, {
-              isMergeableObject: isPlainObject,
+              isMergeableObject,
             })
             current(nextFunction(resolve, mergedData), reject, mergedData)
           })
@@ -55,7 +55,7 @@ const request = (client, method) => {
     const finalOptions = deepmerge.all(
       [DEFAULT_OPTIONS, client.options.request, options, HTTP_METHOD],
       {
-        isMergeableObject: isPlainObject,
+        isMergeableObject,
       }
     )
     finalOptions.body = JSON.stringify(data)
