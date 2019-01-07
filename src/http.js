@@ -59,7 +59,8 @@ const request = (client, method) => {
       }
     )
     finalOptions.body = JSON.stringify(data)
-    if (data instanceof FormData) {
+
+    if (data.contructor.name === 'FormData') {
       finalOptions.body = data
       delete finalOptions.headers['content-type']
       delete finalOptions.headers['Content-Type']
