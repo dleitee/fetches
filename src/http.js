@@ -2,6 +2,7 @@ import deepmerge from 'deepmerge'
 import _pickBy from 'lodash.pickby'
 
 import { appendParams } from './utils/append-params'
+import { isFormData } from './utils/is-form-data'
 import { Client } from './client'
 import { isMergeableObject } from './utils/is-mergeable'
 
@@ -60,7 +61,7 @@ const request = (client, method) => {
     )
     finalOptions.body = JSON.stringify(data)
 
-    if (data.contructor.name === 'FormData') {
+    if (isFormData(data)) {
       finalOptions.body = data
       delete finalOptions.headers['content-type']
       delete finalOptions.headers['Content-Type']
