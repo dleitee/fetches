@@ -51,7 +51,7 @@ export class Client {
     const options = deepmerge(
       this.options,
       {
-        before: [middleware],
+        before: [...this.options.before, middleware],
       },
       {
         isMergeableObject,
@@ -64,7 +64,7 @@ export class Client {
     const options = deepmerge(
       this.options,
       {
-        after: [middleware],
+        after: [...this.options.after, middleware],
       },
       {
         isMergeableObject,

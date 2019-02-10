@@ -49,6 +49,7 @@ describe('Client Module', () => {
     expect(client.after()).not.toContain(mid2)
     expect(newClient.after()[0]).toBe(mid1)
     expect(newClient.after()[1]).toBe(mid2)
+    expect(newClient.after().length).toBe(2)
   })
   test('The appendBeforeMiddleware should append a middleware at the end of middleware list and return a new client', () => {
     const uri = 'http://example.com/api/v1/#index'
@@ -62,5 +63,6 @@ describe('Client Module', () => {
     expect(client.before()).not.toContain(mid2)
     expect(newClient.before()[0]).toBe(mid1)
     expect(newClient.before()[1]).toBe(mid2)
+    expect(newClient.before().length).toBe(2)
   })
 })
