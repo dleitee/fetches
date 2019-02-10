@@ -1,11 +1,11 @@
 {
   "env": {
     "development": {
-      "presets": ["env"]
+      "presets": ["@babel/preset-env"]
     },
     "rollup": {
       "presets": [
-        ["env", {
+        ["@babel/preset-env", {
           "modules": false,
         }]
       ],
