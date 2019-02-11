@@ -1,9 +1,9 @@
 # fetches
 [![codecov](https://codecov.io/gh/dleitee/fetches/branch/master/graph/badge.svg?token=U3H6jLNbac)](https://codecov.io/gh/dleitee/fetches) [![CircleCI](https://circleci.com/gh/dleitee/fetches.svg?style=svg&circle-token=f42a433fef54fd17c818742c05907d4232ccb224)](https://circleci.com/gh/dleitee/fetches) [![Greenkeeper badge](https://badges.greenkeeper.io/dleitee/fetches.svg?token=1574e399ea4865ffbdc06a581673c7ae27e783771d794f9a97a6931118cbdab6&ts=1528215914233)](https://greenkeeper.io/)
 
-Fetches is a workaround to make requests, in an easy and scalable way.
+Fetches is a tiny wrapper for the [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) that help you  to standardize your requests in a easy ans scalable way.
 
-With Fetches you can define your main settings (URL, Auth Header, Request Type, etc), in a single place and then make requests using this info.
+With Fetches you can define your main settings (API URL, Auth Header, Request Type, etc), in a single place and then make requests using these info.
 
 ## Table of Contents
 
@@ -40,7 +40,42 @@ const bulbasaur = await http.get('pokemon/1')
 
 ## API Reference
 
-### Client instance
+### Default Options (Object)
+
+| key | value |
+|:---|:---|
+| requestType | `"json"` |
+| request | `{}` |
+| uri | `{ removeTrailingSlash: false }` |
+| before | `[]` |
+| after | `[]` |
+
+### createClient
+
+**Returns**: [Client Instance](#client-instance).
+
+| Argument | Type | Required? | Description |
+|:---|:---|:---|:---|
+| uri | String | true | The `API URL`, that one you'll use in almost all requests. |
+| options | Object | false | The Options object, this one will be merged into the [default options](#default-options) object 
+
+**Example:**
+
+```es6
+import { createClient } from 'fetches'
+
+const client = createClient('http://pokeapi.co/api/v2/', {})
+```
+
+
+#### getURI
+
+**Returns**: String.
+
+| Argument | Type | Required? | Description |
+|:---|:---|:---|:---|
+| no arguments |
+
 
 #### Methods
 
