@@ -46,7 +46,7 @@
     "deepmerge": "^2.1.0",
     "is-array": "^1.0.1",
     "is-string": "^1.0.4",
-    "normalize-url": "^3.0.1",
+    "normalize-url": "^4.2.0",
     "unfetch": "^4.0.0",
     "url": "^0.11.0"
   }
