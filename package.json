@@ -43,7 +43,7 @@
     "rollup-plugin-node-resolve": "^3.3.0"
   },
   "dependencies": {
-    "deepmerge": "^2.1.0",
+    "deepmerge": "^4.2.1",
     "is-array": "^1.0.1",
     "is-string": "^1.0.4",
     "normalize-url": "^3.0.1",
