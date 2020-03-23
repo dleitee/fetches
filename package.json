@@ -36,7 +36,7 @@
     "jest": "^23.1.0",
     "nock": "^9.2.5",
     "node-fetch": "^2.1.2",
-    "prettier": "^1.13.4",
+    "prettier": "^2.0.2",
     "rollup": "^0.66.0",
     "rollup-plugin-babel": "^3.0.4",
     "rollup-plugin-commonjs": "^9.1.3",
